@@ -2,7 +2,7 @@ from temporalio import activity
 
 
 @activity.defn
-def greet(name: str) -> str:
+async def greet(name: str) -> str:
     """
     An activity is a function that does the actual work in a Temporal workflow.
     Activities can call APIs, query databases, or perform any side-effectful operation.
