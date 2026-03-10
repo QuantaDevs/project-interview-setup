@@ -3,6 +3,7 @@ import uuid
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 from temporalio.client import Client
+from temporalio.contrib.pydantic import pydantic_data_converter
 
 from init_db import init_db
 from src.workflow.hello_workflow import HelloWorkflow
@@ -24,7 +25,10 @@ def create_app():
         body = request.get_json(silent=True) or {}
         name = body.get("name", "World")
 
-        client = await Client.connect("localhost:7233")
+        client = await Client.connect(
+            "localhost:7233",
+            data_converter=pydantic_data_converter,
+        )
         workflow_id = f"hello-{uuid.uuid4()}"
 
         result = await client.execute_workflow(

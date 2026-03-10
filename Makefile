@@ -4,7 +4,7 @@
 install i: install-backend install-frontend
 
 install-backend ib:
-	@cd backend && uv sync && uv run init_db.py
+	@cd backend && uv python install && uv sync && uv run init_db.py
 
 install-frontend if:
 	@cd frontend && npm install --include=dev

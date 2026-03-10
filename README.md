@@ -27,7 +27,7 @@ npm install -g nodemon
 make install
 ```
 
-This installs Python and Node dependencies, and creates the SQLite database.
+This installs Python and Node dependencies, and creates the SQLite database. You may see some npm deprecation warnings — these are expected and harmless.
 
 ## Run the App
 
@@ -54,6 +54,16 @@ Visit [http://localhost:3000](http://localhost:3000) and click **"Say Hello"**. 
 > Hello, World!
 
 If you see that, your setup is complete.
+
+## Bonus: Debug a Temporal Activity (optional)
+
+Want to get familiar with Temporal before the onsite? Uncomment the lines marked `BONUS CHALLENGE` in these 3 files, then click "Say Hello" again:
+
+- `backend/src/workflow/hello_activities.py`
+- `backend/src/workflow/hello_workflow.py`
+- `backend/run_worker.py`
+
+The workflow will fail. Use the Temporal UI at [http://localhost:8233](http://localhost:8233) to inspect the failed workflow, find the error, and fix it.
 
 ## What is Temporal?
 

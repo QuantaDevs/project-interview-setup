@@ -3,21 +3,29 @@ import logging
 import sys
 
 from temporalio.client import Client
+from temporalio.contrib.pydantic import pydantic_data_converter
 from temporalio.worker import Worker
 
 from src.workflow.hello_activities import greet
+# from src.workflow.hello_activities import format_greeting  # BONUS CHALLENGE
 from src.workflow.hello_workflow import HelloWorkflow
 
 
 async def main():
-    client = await Client.connect("localhost:7233")
+    client = await Client.connect(
+        "localhost:7233",
+        data_converter=pydantic_data_converter,
+    )
     print("Connected to Temporal server")
 
     worker = Worker(
         client,
         task_queue="hello-task-queue",
         workflows=[HelloWorkflow],
-        activities=[greet],
+        activities=[
+            greet,
+            # format_greeting,  # BONUS CHALLENGE
+        ],
     )
     print("Worker started, listening on 'hello-task-queue'")
     await worker.run()
